@@ -5,7 +5,9 @@
 
 ## CommandLine
 
-`npx serve -s build`
+``
+npx serve -s build
+``
 
 build환경에서 일회용으로(npx) 서버 실행
 
