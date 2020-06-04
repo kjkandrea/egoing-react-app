@@ -4,6 +4,7 @@
 [수업 바로가기](https://www.youtube.com/playlist?list=PLuHgQVnccGMCRv6f8H9K5Xwsdyg4sFSdi)
 
 
+
 ## CommandLine
 
 ```
@@ -11,6 +12,7 @@ npx serve -s build
 ```
 
 build환경에서 일회용으로(npx) 서버 실행
+
 
 
 ## 개념 정의
@@ -38,6 +40,7 @@ Props와 State는 철저히 분리되어야 한다.
 반복문을 사용하여 목록을 자동으로 생성하거나 할 때에 각각의 목록을 구분할 수 있는 **식별자**가 필요하다.
 
 이 값을 필요로 하는 이유는, 개발자가 외부에서 사용하는 것이 아니라 React가 내부적으로 필요에 따라 요청하는 것이다.
+
 
 
 ### state(data)값을 변경할때에는 어떻게 해야하나요?
