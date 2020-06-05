@@ -81,3 +81,36 @@ data가 배열일때에 통상의 방식대로 변경하면 상태가 최신화 
 * 하지만 이러한 편의도 만능이 아니며, 그렇기 때문에 Vue에서도 `$Set`같은 메소드를 제공하는 것이겠죠.
 
 [Vue : 반응형에 대해 깊이 알아보기](https://kr.vuejs.org/v2/guide/reactivity.html)
+
+
+### 성능향상
+
+#### shouldComponentUpdate
+
+불필요한 렌더(`render()`)를 막기위해 `shouldComponentUpdate()` 를 사용할 수 있다.
+
+매개변수는 `newProps`, `newState`로 약속이 되어 있다. 
+
+```
+TOC.js
+class TOC extends Component {
+  shouldComponentUpdate(newProps, newState){
+    console.log(newProps, 'A');
+    console.log(this.props.data, 'B');
+  }
+  ...
+}
+```
+
+B에서는 **render()가 호출되지 못하였기 때문에 state.content[] 값을 그대로 갖고온다.** 하지만 newProps는 추가된 값까지 가져오는 것을 볼 수 있다. 즉, 전자는 배열값을 가져오지만 후자는 변경값을 갖고온다. 
+
+따라서 불필요한 렌더를 막기위해 렌더가 실행되기 전 props의 변경을 체크하면 된다. 다음과 같이 false 를 리턴하면 렌더가 실행 되지 않는다.
+
+```
+shouldComponentUpdate(newProps, newState){
+  if(this.props.data === newProps.data){
+    return false;
+  }
+  return true;
+}
+```
