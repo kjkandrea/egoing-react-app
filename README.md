@@ -92,7 +92,8 @@ data가 배열일때에 통상의 방식대로 변경하면 상태가 최신화 
 매개변수는 `newProps`, `newState`로 약속이 되어 있다. 
 
 ```
-TOC.js
+// TOC.js
+
 class TOC extends Component {
   shouldComponentUpdate(newProps, newState){
     console.log(newProps, 'A');
