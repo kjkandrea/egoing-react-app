@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import TOC from './components/TOC';
+import ReadContent from './components/ReadContent';
+import CreateContent from './components/CreateContent';
 import Subject from './components/Subject';
-import Content from './components/Content';
+import Control from './components/Control';
 import './App.css';
 
 class App extends Component {
   constructor(props){
     super(props)
+    this.max_content_id = 3;
     this.state = {
-      mode: 'read',
+      mode: 'create',
       selected_content_id: 2,
       subject: {
         title: 'WEB',
@@ -37,10 +40,11 @@ class App extends Component {
     }
   }
   render() {
-    var _title, _desc = null;
+    var _title, _desc, _article = null;
     if(this.state.mode === 'welcome') {
       _title = this.state.welcome.title
       _desc = this.state.welcome.desc
+      _article = <ReadContent title={_title} desc={_desc} />
     } else if(this.state.mode === 'read') {
       var i = 0;
       while(i < this.state.contents.length){
@@ -52,7 +56,30 @@ class App extends Component {
         }
         i += 1;
       }
+      _article = 
+        <ReadContent 
+          title={_title}
+          desc={_desc} 
+        />
+    } else if (this.state.mode === 'create') {
+      _article = 
+        <CreateContent 
+          onSubmit={
+            function(_title, _desc){
+              this.max_content_id += 1;
+              var _content = this.state.contents.concat({
+                id:this.max_content_id,
+                title:_title,
+                desc:_desc
+              })
+              this.setState({
+                contents:_content
+              })
+            }.bind(this)
+          }
+        />
     }
+
     return (
       <div className="App">
         <Subject 
@@ -75,10 +102,17 @@ class App extends Component {
           }
           data={this.state.contents}
         />
-        <Content 
-          title={_title}
-          desc={_desc}
+        <Control
+          onChangeMode={
+            function(_mode){
+              this.setState({
+                mode: _mode
+              })
+              console.log('Hello, Control '+_mode)
+            }.bind(this)
+          }
         />
+        {_article}
       </div>
     );
   } 
